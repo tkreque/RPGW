@@ -1,0 +1,106 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3>Listagem de Itens</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form>
+                    <div class="form-inline">
+                            <input type="text" class="form-control" ng-model="pesquisa" />
+                            <a class="btn btn-default" href="#/item-novo" role="button"><span class="glyphicon glyphicon-pencil"></span> Novo...</a>
+                    </div>
+            </form>		
+            <hr>		
+        </div>
+    </div>
+
+    <div class="row" ng-show="editarRegistro">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h4>Edição de Item</h4>
+            <form role="form">
+                <div class="form-group">					 
+                    <label for="nome">Nome</label>
+                    <input type="text" ng-model="item.nome" class="form-control" id="nome" />
+                    <label for="preco">Preço</label>
+                    <input type="text" ng-model="item.preco" class="form-control" id="preco" />
+                </div>
+                <div class="form-group">					 
+                    <label for="peso">Peso</label>
+                    <input type="text" ng-model="item.peso" class="form-control" id="peso" />
+                    <label for="categoria">Categoria</label>
+                    <select class="form-control" ng-model="item.categoria" id="categoria">
+                        <option value="">Selecione uma Categoria</option>
+                        <option value="Arma">Arma</option>
+                        <option value="Armadura">Armadura</option>
+                    </select>
+                    <label for="tipo">Tipo</label>
+                    <select class="form-control" ng-model="item.tipo" ng-option="filter: item.categoria" id="tipo">
+                        <option value="">Selecione um tipo</option>
+                        <optgroup label="Arma">
+                        <option value="Cortante">Cortante</option>
+                        <option value="Perfurante">Perfurante</option>
+                        <option value="Concussão">Concussão</option>
+                        <optgroup label="Armadura">
+                        <option value="Leve">Leve</option>
+                        <option value="Médio">Médio</option>
+                        <option value="Pesado">Pesado</option>
+                        <option value="Escudo">Escudo</option>
+                    </select>
+                </div>
+                <div ng-show="item.categoria==='Arma'||item.categoria==='Armadura'">
+                    <div class="form-group" ng-hide="item.categoria === 'Armadura'">					 
+                        <label for="dano">Dano</label>
+                        <input type="text" ng-model="item.bonus.dano" class="form-control" id="dano" />
+                        <label for="critico">Critico</label>
+                        <input type="text" ng-model="item.bonus.critico" class="form-control" id="critico" />
+                    </div>
+                    <div class="form-group" ng-hide="item.categoria === 'Arma'">					 
+                        <label for="ca">CA</label>
+                        <input type="text" ng-model="item.bonus.ca" class="form-control" id="ca" />
+                        <label for="penalidade">Penalidade</label>
+                        <input type="text" ng-model="item.bonus.penalidade" class="form-control" id="penalidade" />
+                    </div>
+                </div>
+            </form>
+            <button type="button" ng-click="cancelarEdicao()" class="btn btn-warning"><span class="glyphicon glyphicon-menu-left"></span> Cancelar</button>
+            <button type="button" ng-click="salvarEdicao()" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Salvar Edição</button>
+        </div>
+    </div>
+
+    <div class="row" ng-hide="editarRegistro">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>Valor</th>
+                    <th>Bonus</th>
+                    <th>Peso</th>
+                    <th>Tipo</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr ng-repeat="item in listaItens | filter:pesquisa | orderBy:'+categoria'">
+                        <td>{{item.nome}}</td>
+                        <td>{{item.preco}}</td>
+                        <td>{{item.bonus}}</td>
+                        <td>{{item.peso}}</td>
+                        <td>{{item.tipo}}</td>
+                        <th>
+                            <button type="button" ng-click="excluir(item.id)" class="btn btn-sm btn-danger" alt="Excluir" title="Excluir">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" ng-click="editar(item)" class="btn btn-sm btn-default" alt="Editar" title="Editar">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+        </table>
+
+        </div>
+    </div>
+</div>

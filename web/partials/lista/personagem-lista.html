@@ -1,0 +1,107 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h3>Listagem de Personagens</h3>
+    </div>
+
+    <div class="row">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <form>
+                    <div class="form-inline">
+                            <input type="text" class="form-control" ng-model="pesquisa" />
+                            <a class="btn btn-default" href="#/personagem-novo" role="button"><span class="glyphicon glyphicon-pencil"></span> Novo...</a>
+                    </div>
+            </form>		
+            <hr>		
+        </div>
+    </div>
+
+    <div class="row" ng-show="editarRegistro">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+            <h4>Edição de Personagem</h4>
+            <form role="form">
+                <div class="form-group">					 
+                    <label for="nome">Nome</label>
+                    <input type="text" ng-model="personagem.nome" class="form-control" id="nome" />
+                    <label for="pj">PJ</label>
+                    <input type="text" ng-model="personagem.pj" class="form-control" id="pj" />
+                </div>
+                <div class="form-group">					 
+                    <label for="raca">Raça</label>
+                    <input type="text" ng-model="personagem.raca" class="form-control" id="raca" />
+                    <label for="sexo">Sexo</label>
+                    <input type="radio" class="form-control" ng-model="personagem.sexo" id="sexo" value="M"> Homem
+                    <input type="radio" class="form-control" ng-model="personagem.sexo" id="sexo" value="F"> Mulher
+                    <input type="radio" class="form-control" ng-model="personagem.sexo" id="sexo" value="O"> Outro
+                </div>
+                <div class="form-group">					 
+                    <label for="classe">Classe</label>
+                    <input type="text" ng-model="personagem.classe" class="form-control" id="classe" />
+                    <label for="nivel">Nível</label>
+                    <input type="number" class="form-control" ng-model="personagem.nivel" id="nivel" min="1" max="20" value="1"/>
+                </div>
+                <div class="form-group">					 
+                    <label for="str">Força</label>
+                    <input type="number" ng-model="personagem.str.status" class="form-control" id="str" min="6" max="26" ng-click="personagem.str.mod = setMod(personagem.str.status)"/>
+                    <input type="text" ng-model="personagem.str.mod" class="form-control" id="str" readonly/>
+                    <label for="dex">Dextreza</label>
+                    <input type="number" ng-model="personagem.dex.status" class="form-control" id="dex" min="6" max="26" ng-click="personagem.dex.mod = setMod(personagem.dex.status)"/>
+                    <input type="text" ng-model="personagem.dex.mod" class="form-control" id="dex" readonly/>
+                    <label for="cons">Constituição</label>
+                    <input type="number" ng-model="personagem.cons.status" class="form-control" id="cons" min="6" max="26" ng-click="personagem.cons.mod = setMod(personagem.cons.status)"/>
+                    <input type="text" ng-model="personagem.cons.mod" class="form-control" id="cons" readonly/>
+                </div>
+                <div class="form-group">					 
+                    <label for="int">Inteligência</label>
+                    <input type="number" ng-model="personagem.int.status" class="form-control" id="int" min="6" max="26" ng-click="personagem.int.mod = setMod(personagem.int.status)"/>
+                    <input type="text" ng-model="personagem.int.mod" class="form-control" id="int" readonly/>
+                    <label for="wis">Sabedoria</label>
+                    <input type="number" ng-model="personagem.wis.status" class="form-control" id="wis" min="6" max="26" ng-click="personagem.wis.mod = setMod(personagem.wis.status)"/>
+                    <input type="text" ng-model="personagem.wis.mod" class="form-control" id="wis" readonly/>
+                    <label for="cha">Carisma</label>
+                    <input type="number" ng-model="personagem.cha.status" class="form-control" id="cha" min="6" max="26" ng-click="personagem.cha.mod = setMod(personagem.cha.status)"/>
+                    <input type="text" ng-model="personagem.cha.mod" class="form-control" id="cha" readonly/>
+                </div>
+            </form>
+            <button type="button" ng-click="cancelarEdicao()" class="btn btn-warning"><span class="glyphicon glyphicon-menu-left"></span> Cancelar</button>
+            <button type="button" ng-click="salvarEdicao()" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Salvar Edição</button>
+        </div>
+    </div>
+
+    <div class="row" ng-hide="editarRegistro">
+        <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+
+        <table class="table table-striped table-hover">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>PJ</th>
+                    <th>Raça</th>
+                    <th>Sexo</th>
+                    <th>Classe</th>
+                    <th>Nível</th>
+                    <th>Ação</th>
+                </tr>
+            </thead>
+                <tbody>
+                    <tr ng-repeat="personagem in listaPersonagens | filter:pesquisa | orderBy:'+nivel'">
+                        <td>{{personagem.nome}}</td>
+                        <td>{{personagem.pj}}</td>
+                        <td>{{personagem.raca}}</td>
+                        <td>{{personagem.sexo}}</td>
+                        <td>{{personagem.classe}}</td>
+                        <td>{{personagem.nivel}}</td>
+                        <th>
+                            <button type="button" ng-click="excluir(personagem.id)" class="btn btn-sm btn-danger" alt="Excluir" title="Excluir">
+                                <span class="glyphicon glyphicon-remove"></span>
+                            </button>
+                            <button type="button" ng-click="editar(personagem)" class="btn btn-sm btn-default" alt="Editar" title="Editar">
+                                <span class="glyphicon glyphicon-edit"></span>
+                            </button>
+                        </th>
+                    </tr>
+                </tbody>
+        </table>
+
+        </div>
+    </div>
+</div>

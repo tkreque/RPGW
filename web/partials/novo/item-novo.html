@@ -1,0 +1,52 @@
+<div class="row">
+    <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
+        <h4>Criação de Item</h4>
+        <form role="form">
+            <div class="form-group">					 
+                <label for="nome">Nome</label>
+                <input type="text" ng-model="item.nome" class="form-control" id="nome" />
+                <label for="preco">Preço</label>
+                <input type="text" ng-model="item.preco" class="form-control" id="preco" />
+            </div>
+            <div class="form-group">					 
+                <label for="peso">Peso</label>
+                <input type="text" ng-model="item.peso" class="form-control" id="peso" />
+                <label for="categoria">Categoria</label>
+                <select class="form-control" ng-model="item.categoria" id="categoria">
+                    <option value="">Selecione uma Categoria</option>
+                    <option value="Arma">Arma</option>
+                    <option value="Armadura">Armadura</option>
+                </select>
+                <label for="tipo">Tipo</label>
+                <select class="form-control" ng-model="item.tipo" ng-option="filter: item.categoria" id="tipo">
+                    <option value="">Selecione um tipo</option>
+                    <optgroup label="Arma">
+                    <option value="Cortante">Cortante</option>
+                    <option value="Perfurante">Perfurante</option>
+                    <option value="Concussão">Concussão</option>
+                    <optgroup label="Armadura">
+                    <option value="Leve">Leve</option>
+                    <option value="Médio">Médio</option>
+                    <option value="Pesado">Pesado</option>
+                    <option value="Escudo">Escudo</option>
+                </select>
+            </div>
+            <div ng-show="item.categoria==='Arma'||item.categoria==='Armadura'">
+                <div class="form-group" ng-hide="item.categoria === 'Armadura'">					 
+                    <label for="dano">Dano</label>
+                    <input type="text" ng-model="item.bonus.dano" class="form-control" id="dano" />
+                    <label for="critico">Critico</label>
+                    <input type="text" ng-model="item.bonus.critico" class="form-control" id="critico" />
+                </div>
+                <div class="form-group" ng-hide="item.categoria === 'Arma'">					 
+                    <label for="ca">CA</label>
+                    <input type="text" ng-model="item.bonus.ca" class="form-control" id="ca" />
+                    <label for="penalidade">Penalidade</label>
+                    <input type="text" ng-model="item.bonus.penalidade" class="form-control" id="penalidade" />
+                </div>
+            </div>
+        </form>
+        <button type="button" ng-click="salvar()" class="btn btn-primary"><span class="glyphicon glyphicon-save"></span> Salvar</button>
+        <a class="btn btn-warning" href="#/personagem-lista" role="button"><span class="glyphicon glyphicon-menu-left"></span> Cancelar</a>
+    </div>
+</div>

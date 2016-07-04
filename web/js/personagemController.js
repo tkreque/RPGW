@@ -11,8 +11,9 @@ angular.module('personagemModule', ['rpgApp']).
 	};
 
 	$scope.excluir = function (personagem) {
-             $http.delete($scope.urlAtual + 'rest/Personagem/' + personagem.codigo).success(function (data) {
-                $scope.fields = data;
+            console.log(personagem);
+             $http.delete($scope.urlAtual + 'rest/Personagem/' + personagem.id).success(function (data) {
+                $scope.personagem = data;
                 $scope.todosPersonagens();
             });	
 	};
@@ -25,11 +26,10 @@ angular.module('personagemModule', ['rpgApp']).
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
                 $scope.excluir($scope.personagem);    
-                $scope.todosPersonagens();
+                $scope.editarRegistro = false;
             }).error(function (data, status, headers, config) {
-                $scope.todosPersonagens();
-            });            
-            $scope.editarRegistro = false;	
+                console.log(data);
+            });	
 	};
 
 	$scope.cancelarEdicao = function () {
@@ -43,11 +43,10 @@ angular.module('personagemModule', ['rpgApp']).
                 url: $scope.urlAtual + 'rest/Personagem',
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                $scope.todosPersonagens();
+                $scope.redir('/personagem-lista');
             }).error(function (data, status, headers, config) {
-                $scope.todosPersonagens();
+                console.log(data);
             });
-            $scope.redir('/personagem-lista');
 	};
         
         $scope.todosPersonagens = function() {

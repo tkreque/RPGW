@@ -11,10 +11,10 @@ angular.module('missaoModule', ['rpgApp']).
 	};
 
 	$scope.excluir = function (missao) {
-            $http.delete($scope.urlAtual + 'rest/Missao/' +  missao.codigo).success(function (data) {
-                $scope.fields = data;
+            $http.delete($scope.urlAtual + 'rest/Missao/' + missao.id).success(function (data) {
+                $scope.missao = data;
                 $scope.todasMissoes();
-            });
+            });	
 	};
 
 	$scope.salvarEdicao = function () {
@@ -25,11 +25,10 @@ angular.module('missaoModule', ['rpgApp']).
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
                 $scope.excluir($scope.missao);    
-                $scope.todasMissoes();
+                $scope.editarRegistro = false;
             }).error(function (data, status, headers, config) {
-                $scope.todasMissoes();
-            });            
-            $scope.editarRegistro = false;	
+                console.log(data);
+            });      
 	};
 
 	$scope.cancelarEdicao = function () {
@@ -44,10 +43,10 @@ angular.module('missaoModule', ['rpgApp']).
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
                 $scope.todasMissoes();
+                $scope.redir('/missao-lista');
             }).error(function (data, status, headers, config) {
-                $scope.todasMissoes();
-            });
-            $scope.redir('/missao-lista');
+                console.log(data);
+            });            
 	};
         
         $scope.todasMissoes = function() {

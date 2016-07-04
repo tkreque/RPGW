@@ -25,11 +25,10 @@ angular.module('itemModule', ['rpgApp']).
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
                 $scope.excluir($scope.item);    
-                $scope.todosItens();
+                $scope.editarRegistro = false;
             }).error(function (data, status, headers, config) {
-                $scope.todosItens();
-            });            
-            $scope.editarRegistro = false;	
+                console.log(data);
+            });
 	};
 
 	$scope.cancelarEdicao = function () {
@@ -43,11 +42,10 @@ angular.module('itemModule', ['rpgApp']).
                 url: $scope.urlAtual + 'rest/Item',
                 headers: {'Content-Type': 'application/json'}
             }).success(function (data, status, headers, config) {
-                $scope.todosItens();
+                $scope.redir('/item-lista');
             }).error(function (data, status, headers, config) {
-                $scope.todosItens();
+                console.log(data);
             });
-            $scope.redir('/item-lista');
 	};
         
         $scope.todosItens = function() {

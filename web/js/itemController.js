@@ -1,29 +1,34 @@
 angular.module('itemModule', ['rpgApp']).
-    controller('itemController', ['$scope', function($scope){
+    controller('itemController', function($scope, $http){
 	
-	$scope.item = {};
+        $scope.item = {};
 	$scope.pesquisa = '';
 	$scope.editarRegistro = false;
-
-	$scope.editar = function (obj) {
+        
+        $scope.editar = function (obj) {
             $scope.editarRegistro = true;
             $scope.item = angular.copy(obj);
 	};
 
-	$scope.excluir = function (key) {
-            for (var i = 0; i < $scope.listaItens.length; i++) {
-                if($scope.listaItens[i].id===key) {
-                    $scope.listaItens.splice(i, 1);
-                    $scope.pesquisa = '';
-                }
-            }		
+	$scope.excluir = function (item) {
+            $http.delete($scope.urlAtual + 'rest/Item/' + item.id).success(function (data) {
+                $scope.item = data;
+                $scope.todosItens();
+            });	
 	};
 
-	$scope.salvarEdicao = function () {
-            $scope.excluir($scope.item.id);
-
-            $scope.item.id = $scope.getFakeID();
-            $scope.listaItens.push($scope.item);
+	$scope.salvarEdicao = function () {            
+            $http({
+                method: 'PUT',
+                data: $scope.item,
+                url: $scope.urlAtual + 'rest/Item',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                $scope.excluir($scope.item);    
+                $scope.todosItens();
+            }).error(function (data, status, headers, config) {
+                $scope.todosItens();
+            });            
             $scope.editarRegistro = false;	
 	};
 
@@ -32,8 +37,30 @@ angular.module('itemModule', ['rpgApp']).
 	};
 
 	$scope.salvar = function () {
-            $scope.item.id = $scope.getFakeID();
-            $scope.listaItens.push($scope.item);
+            $http({
+                method: 'POST',
+                data: $scope.fields,
+                url: $scope.urlAtual + 'rest/Item',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                $scope.todosItens();
+            }).error(function (data, status, headers, config) {
+                $scope.todosItens();
+            });
             $scope.redir('/item-lista');
 	};
-}]);
+        
+        $scope.todosItens = function() {
+            $http.get($scope.urlAtual +'rest/Item').success(function (data) {
+                $scope.listaItens = data;                 
+            });
+        };
+
+        $scope.consultarItem = function(item) {
+            $http.get($scope.urlAtual + 'rest/Item/' + item.id).success(function (data) {
+                $scope.fields = data;
+            });
+        };
+        
+        
+});

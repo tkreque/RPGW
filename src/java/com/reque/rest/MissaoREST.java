@@ -32,7 +32,7 @@ public class MissaoREST extends CrudGenericoRest<Missao>{
     public Response consultarPK(String pk) {
         try {
             Missao m = mrn.consultar(new Missao(Integer.parseInt(pk)));
-            return Response.ok(m).build();
+            return Response.ok(new Gson().toJson(m)).build();
         } catch (RNException e) {
             return exceptionParaResponse(e);
         }
@@ -73,9 +73,9 @@ public class MissaoREST extends CrudGenericoRest<Missao>{
     }
 
     @Override
-    public Response salvar(Missao obj) {
+    public Response salvar(String obj) {
         try {
-            Missao m = mrn.salvar(obj);
+            Missao m = mrn.salvar(new Gson().fromJson(obj, Missao.class));
             URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(m.getId())).build();
             return Response.created(uri).build();      
         } catch (RNException e) {
@@ -89,9 +89,7 @@ public class MissaoREST extends CrudGenericoRest<Missao>{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
-        GenericEntity<List<Missao>> lista = new GenericEntity<List<Missao>>(obj) {
-        };
-        return Response.ok(lista).build();    
+        return Response.ok(new Gson().toJson(obj)).build();    
     }
     
 }

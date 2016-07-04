@@ -32,7 +32,7 @@ public class PersonagemREST extends CrudGenericoRest<Personagem>{
     public Response consultarPK(String pk) {
         try {
             Personagem p = prn.consultar(new Personagem(Integer.parseInt(pk)));
-            return Response.ok(p).build();
+            return Response.ok(new Gson().toJson(p)).build();
         } catch (RNException e) {
             return exceptionParaResponse(e);
         }
@@ -73,9 +73,9 @@ public class PersonagemREST extends CrudGenericoRest<Personagem>{
     }
 
     @Override
-    public Response salvar(Personagem obj) {
+    public Response salvar(String obj) {
         try {
-            Personagem p = prn.salvar(obj);
+            Personagem p = prn.salvar(new Gson().fromJson(obj, Personagem.class));
             URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(p.getId())).build();
             return Response.created(uri).build();      
         } catch (RNException e) {
@@ -89,9 +89,7 @@ public class PersonagemREST extends CrudGenericoRest<Personagem>{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
-        GenericEntity<List<Personagem>> lista = new GenericEntity<List<Personagem>>(obj) {
-        };
-        return Response.ok(lista).build();    
+        return Response.ok(new Gson().toJson(obj)).build();    
     }
     
 }

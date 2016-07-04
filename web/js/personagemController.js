@@ -1,5 +1,5 @@
 angular.module('personagemModule', ['rpgApp']).
-    controller('personagemController', ['$scope', function($scope){
+    controller('personagemController', function($scope, $http){
 	
 	$scope.personagem = {};
 	$scope.pesquisa = '';
@@ -10,20 +10,25 @@ angular.module('personagemModule', ['rpgApp']).
             $scope.personagem = angular.copy(obj);
 	};
 
-	$scope.excluir = function (key) {
-            for (var i = 0; i < $scope.listaPersonagens.length; i++) {
-                if($scope.listaPersonagens[i].id===key) {
-                    $scope.listaPersonagens.splice(i, 1);
-                    $scope.pesquisa = '';
-                }
-            }		
+	$scope.excluir = function (personagem) {
+             $http.delete($scope.urlAtual + 'rest/Personagem/' + personagem.codigo).success(function (data) {
+                $scope.fields = data;
+                $scope.todosPersonagens();
+            });	
 	};
 
 	$scope.salvarEdicao = function () {
-            $scope.excluir($scope.personagem.id);
-
-            $scope.personagem.id = $scope.getFakeID();
-            $scope.listaPersonagens.push($scope.personagem);
+            $http({
+                method: 'PUT',
+                data: $scope.personagem,
+                url: $scope.urlAtual + 'rest/Personagem',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                $scope.excluir($scope.personagem);    
+                $scope.todosPersonagens();
+            }).error(function (data, status, headers, config) {
+                $scope.todosPersonagens();
+            });            
             $scope.editarRegistro = false;	
 	};
 
@@ -32,11 +37,30 @@ angular.module('personagemModule', ['rpgApp']).
 	};
 
 	$scope.salvar = function () {
-            $scope.personagem.id = $scope.getFakeID();
-            $scope.listaPersonagens.push($scope.personagem);
+            $http({
+                method: 'POST',
+                data: $scope.fields,
+                url: $scope.urlAtual + 'rest/Personagem',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                $scope.todosPersonagens();
+            }).error(function (data, status, headers, config) {
+                $scope.todosPersonagens();
+            });
             $scope.redir('/personagem-lista');
 	};
         
+        $scope.todosPersonagens = function() {
+            $http.get($scope.urlAtual +'rest/Personagem').success(function (data) {
+                $scope.listaPersonagens = data;                
+            });
+        };
+
+        $scope.consultarPersonagem = function(personagem) {
+            $http.get($scope.urlAtual + 'rest/Personagem/' + personagem.codigo).success(function (data) {
+                $scope.fields = data;
+            });
+        };
         
        $scope.setMod = function(valor){
        var mod = 0 ; 
@@ -65,4 +89,4 @@ angular.module('personagemModule', ['rpgApp']).
         
         return mod;
     };
-}]);
+});

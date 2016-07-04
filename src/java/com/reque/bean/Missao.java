@@ -21,8 +21,7 @@ public class Missao {
         this.nome = nome;
     }
 
-    public Missao(int id, int nd, int xp, String nome, String chefe, String monstros) {
-        this.id = id;
+    public Missao(int nd, int xp, String nome, String chefe, String monstros) {
         this.nd = nd;
         this.xp = xp;
         this.nome = nome;

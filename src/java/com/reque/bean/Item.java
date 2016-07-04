@@ -22,8 +22,7 @@ public class Item {
         this.nome = nome;
     }
 
-    public Item(int id, int peso, String nome, String tipo, String categoria, String bonus, double preco) {
-        this.id = id;
+    public Item(int peso, String nome, String tipo, String categoria, String bonus, double preco) {
         this.peso = peso;
         this.nome = nome;
         this.tipo = tipo;

@@ -13,7 +13,6 @@ import com.reque.utils.CrudGenericoRest;
 import java.net.URI;
 import java.util.List;
 import javax.ws.rs.Path;
-import javax.ws.rs.core.GenericEntity;
 import javax.ws.rs.core.Response;
 
 /**
@@ -32,7 +31,7 @@ public class ItemREST extends CrudGenericoRest<Item>{
     public Response consultarPK(String pk) {
         try {
             Item i = irn.consultar(new Item(Integer.parseInt(pk)));
-            return Response.ok(i).build();
+            return Response.ok(new Gson().toJson(i)).build();
         } catch (RNException e) {
             return exceptionParaResponse(e);
         }
@@ -73,10 +72,10 @@ public class ItemREST extends CrudGenericoRest<Item>{
     }
 
     @Override
-    public Response salvar(Item obj) {
+    public Response salvar(String obj) {
         try {
-            Item p = irn.salvar(obj);
-            URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(p.getId())).build();
+            Item i = irn.salvar(new Gson().fromJson(obj, Item.class));
+            URI uri = uriInfo.getAbsolutePathBuilder().path(Integer.toString(i.getId())).build();
             return Response.created(uri).build();      
         } catch (RNException e) {
             return exceptionParaResponse(e);
@@ -89,9 +88,7 @@ public class ItemREST extends CrudGenericoRest<Item>{
             return Response.status(Response.Status.NOT_FOUND).build();
         }
         
-        GenericEntity<List<Item>> lista = new GenericEntity<List<Item>>(obj) {
-        };
-        return Response.ok(lista).build();    
+        return Response.ok(new Gson().toJson(obj)).build();    
     }
     
 }

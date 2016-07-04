@@ -41,4 +41,19 @@ public class MissaoRN extends CrudGenericoRN<Missao>{
         return mbd.salvar(obj);
     }
     
+    public void reinitializeDB(){
+        try{
+            mbd.truncate();
+            Missao m = new Missao(2, 500, "A caverna de Utak", "Utak, o Orc Negro", "Goblins, Lobos, Orcs");
+            salvar(m);
+            m = new Missao(5, 1000, "As arvores mortas", "Nin, o Beholder", "Lobos, Orcs, Elfos Negros");
+            salvar(m);
+            m = new Missao(8, 1500, "A torre do mago", "Kilimar, o mago louco", "Esqueletos, Zumbis, Gargulas");
+            salvar(m);            
+        }catch(Exception ex){
+            throw new RuntimeException("Erro no BD: "+ex);
+        }
+        
+    }
+    
 }

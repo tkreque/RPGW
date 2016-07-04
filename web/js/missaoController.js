@@ -1,5 +1,5 @@
 angular.module('missaoModule', ['rpgApp']).
-    controller('missaoController', ['$scope', function($scope){
+    controller('missaoController', function($scope, $http){
 	
 	$scope.missao = {};
 	$scope.pesquisa = '';
@@ -10,20 +10,25 @@ angular.module('missaoModule', ['rpgApp']).
             $scope.missao = angular.copy(obj);
 	};
 
-	$scope.excluir = function (key) {
-            for (var i = 0; i < $scope.listaMissoes.length; i++) {
-                if($scope.listaMissoes[i].id===key) {
-                    $scope.listaMissoes.splice(i, 1);
-                    $scope.pesquisa = '';
-                }
-            }		
+	$scope.excluir = function (missao) {
+            $http.delete($scope.urlAtual + 'rest/Missao/' +  missao.codigo).success(function (data) {
+                $scope.fields = data;
+                $scope.todasMissoes();
+            });
 	};
 
 	$scope.salvarEdicao = function () {
-            $scope.excluir($scope.missao.id);
-
-            $scope.missao.id = $scope.getFakeID();
-            $scope.listaMissoes.push($scope.missao);
+            $http({
+                method: 'PUT',
+                data: $scope.missao,
+                url: $scope.urlAtual + 'rest/Missao',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                $scope.excluir($scope.missao);    
+                $scope.todasMissoes();
+            }).error(function (data, status, headers, config) {
+                $scope.todasMissoes();
+            });            
             $scope.editarRegistro = false;	
 	};
 
@@ -32,8 +37,28 @@ angular.module('missaoModule', ['rpgApp']).
 	};
 
 	$scope.salvar = function () {
-            $scope.missao.id = $scope.getFakeID();
-            $scope.listaMissoes.push($scope.missao);
+            $http({
+                method: 'POST',
+                data: $scope.fields,
+                url: $scope.urlAtual + 'rest/Missao',
+                headers: {'Content-Type': 'application/json'}
+            }).success(function (data, status, headers, config) {
+                $scope.todasMissoes();
+            }).error(function (data, status, headers, config) {
+                $scope.todasMissoes();
+            });
             $scope.redir('/missao-lista');
 	};
-}]);
+        
+        $scope.todasMissoes = function() {
+            $http.get($scope.urlAtual +'rest/Missao').success(function (data) {
+                $scope.listaMissoes = data;                
+            });
+        };
+
+        $scope.consultarMissao = function(missao) {
+            $http.get($scope.urlAtual + 'rest/Missao/' + missao.codigo).success(function (data) {
+                $scope.fields = data;
+            });
+        };
+});

@@ -41,25 +41,25 @@
                 </div>
                 <div class="form-group">					 
                     <label for="str">Força</label>
-                    <input type="number" ng-model="personagem.str.status" class="form-control" id="str" min="6" max="26" ng-click="personagem.str.mod = setMod(personagem.str.status)"/>
-                    <input type="text" ng-model="personagem.str.mod" class="form-control" id="str" readonly/>
+                    <input type="number" ng-model="personagem.str" class="form-control" id="str" min="6" max="26" ng-click="personagem.modStr = setMod(personagem.str)"/>
+                    <input type="text" ng-model="personagem.modStr" class="form-control" id="str" readonly/>
                     <label for="dex">Dextreza</label>
-                    <input type="number" ng-model="personagem.dex.status" class="form-control" id="dex" min="6" max="26" ng-click="personagem.dex.mod = setMod(personagem.dex.status)"/>
-                    <input type="text" ng-model="personagem.dex.mod" class="form-control" id="dex" readonly/>
+                    <input type="number" ng-model="personagem.dex" class="form-control" id="dex" min="6" max="26" ng-click="personagem.modDex = setMod(personagem.dex)"/>
+                    <input type="text" ng-model="personagem.modDex" class="form-control" id="dex" readonly/>
                     <label for="cons">Constituição</label>
-                    <input type="number" ng-model="personagem.cons.status" class="form-control" id="cons" min="6" max="26" ng-click="personagem.cons.mod = setMod(personagem.cons.status)"/>
-                    <input type="text" ng-model="personagem.cons.mod" class="form-control" id="cons" readonly/>
+                    <input type="number" ng-model="personagem.cons" class="form-control" id="cons" min="6" max="26" ng-click="personagem.modCons = setMod(personagem.cons)"/>
+                    <input type="text" ng-model="personagem.modCons" class="form-control" id="cons" readonly/>
                 </div>
                 <div class="form-group">					 
                     <label for="int">Inteligência</label>
-                    <input type="number" ng-model="personagem.int.status" class="form-control" id="int" min="6" max="26" ng-click="personagem.int.mod = setMod(personagem.int.status)"/>
-                    <input type="text" ng-model="personagem.int.mod" class="form-control" id="int" readonly/>
+                    <input type="number" ng-model="personagem.inte" class="form-control" id="int" min="6" max="26" ng-click="personagem.modInte = setMod(personagem.inte)"/>
+                    <input type="text" ng-model="personagem.modInte" class="form-control" id="int" readonly/>
                     <label for="wis">Sabedoria</label>
-                    <input type="number" ng-model="personagem.wis.status" class="form-control" id="wis" min="6" max="26" ng-click="personagem.wis.mod = setMod(personagem.wis.status)"/>
-                    <input type="text" ng-model="personagem.wis.mod" class="form-control" id="wis" readonly/>
+                    <input type="number" ng-model="personagem.wis" class="form-control" id="wis" min="6" max="26" ng-click="personagem.modWis = setMod(personagem.wis)"/>
+                    <input type="text" ng-model="personagem.modWis" class="form-control" id="wis" readonly/>
                     <label for="cha">Carisma</label>
-                    <input type="number" ng-model="personagem.cha.status" class="form-control" id="cha" min="6" max="26" ng-click="personagem.cha.mod = setMod(personagem.cha.status)"/>
-                    <input type="text" ng-model="personagem.cha.mod" class="form-control" id="cha" readonly/>
+                    <input type="number" ng-model="personagem.cha" class="form-control" id="cha" min="6" max="26" ng-click="personagem.modCha = setMod(personagem.cha)"/>
+                    <input type="text" ng-model="personagem.modCha" class="form-control" id="cha" readonly/>
                 </div>
             </form>
             <button type="button" ng-click="cancelarEdicao()" class="btn btn-warning"><span class="glyphicon glyphicon-menu-left"></span> Cancelar</button>
@@ -70,7 +70,7 @@
     <div class="row" ng-hide="editarRegistro">
         <div class="col-xs-12 col-sm-12 col-md-12 col-lg-12">
 
-        <table class="table table-striped table-hover">
+        <table class="table table-striped table-hover" ng-init="todosPersonagens()">
             <thead>
                 <tr>
                     <th>Nome</th>

@@ -41,4 +41,20 @@ public class PersonagemRN extends CrudGenericoRN<Personagem> {
         return pbd.salvar(obj);
     }
     
+    public void reinitializeDB(){
+        try{
+            pbd.truncate();
+            Personagem p = new Personagem(7, "Kirof", "Ranger", "Elfo", "Reque", "M", 12, 1, 12, 1, 18, 4, 16, 3, 10, 0, 12, 1);
+            salvar(p);
+            p = new Personagem(10, "Sibele", "Mago", "Humano", "Bruna", "F", 10, 0, 14, 2, 12, 1, 12, 1, 18, 4, 16, 3);
+            salvar(p);
+            p = new Personagem(1, "Ylf", "Ladino", "Anao", "JP", "O", 12, 1, 14, 2, 16, 3, 13, 1, 10, 0, 8, -1);
+            salvar(p);
+            
+        }catch(Exception ex){
+            throw new RuntimeException("Erro no BD: "+ex);
+        }
+        
+    }
+    
 }

@@ -11,8 +11,7 @@ package com.reque.bean;
  */
 public class Personagem {
     private int id, nivel;
-    private String nome, classe, raca, pj;
-    private char sexo;
+    private String nome, classe, raca, pj, sexo;
     private int str, modStr, cons, modCons, dex, modDex,
             wis, modWis, inte, modInte, cha, modCha;
 
@@ -25,8 +24,7 @@ public class Personagem {
         this.pj = pj;
     }
 
-    public Personagem(int id, int nivel, String nome, String classe, String raca, String pj, char sexo, int str, int modStr, int cons, int modCons, int dex, int modDex, int wis, int modWis, int inte, int modInte, int cha, int modCha) {
-        this.id = id;
+    public Personagem(int nivel, String nome, String classe, String raca, String pj, String sexo, int str, int modStr, int cons, int modCons, int dex, int modDex, int wis, int modWis, int inte, int modInte, int cha, int modCha) {
         this.nivel = nivel;
         this.nome = nome;
         this.classe = classe;
@@ -99,11 +97,11 @@ public class Personagem {
         this.pj = pj;
     }
 
-    public char getSexo() {
+    public String getSexo() {
         return sexo;
     }
 
-    public void setSexo(char sexo) {
+    public void setSexo(String sexo) {
         this.sexo = sexo;
     }
 

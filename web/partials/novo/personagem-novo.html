@@ -24,24 +24,24 @@
             </div>
             <div class="form-group">					 
                     <label for="str">Força</label>
-                    <input type="number" ng-model="fields.str" class="form-control" id="str" min="6" max="26" ng-click="fields.modStr = setMod(fields.str)"/>
+                    <input type="number" ng-model="fields.str" class="form-control" id="str" min="6" max="26" ng-blur="fields.modStr = setMod(fields.str)" ng-click="fields.modStr = setMod(fields.str)"/>
                     <input type="text" ng-model="fields.modStr" class="form-control" id="str" readonly/>
                     <label for="dex">Dextreza</label>
-                    <input type="number" ng-model="fields.dex" class="form-control" id="dex" min="6" max="26" ng-click="fields.modDex = setMod(fields.dex)"/>
+                    <input type="number" ng-model="fields.dex" class="form-control" id="dex" min="6" max="26" ng-blur="fields.modDex = setMod(fields.dex)" ng-click="fields.modDex = setMod(fields.dex)"/>
                     <input type="text" ng-model="fields.modDex" class="form-control" id="dex" readonly/>
                     <label for="cons">Constituição</label>
-                    <input type="number" ng-model="fields.cons" class="form-control" id="cons" min="6" max="26" ng-click="fields.modCons = setMod(fields.cons)"/>
+                    <input type="number" ng-model="fields.cons" class="form-control" id="cons" min="6" max="26" ng-blur="fields.modCons = setMod(fields.cons)" ng-click="fields.modCons = setMod(fields.cons)"/>
                     <input type="text" ng-model="fields.modCons" class="form-control" id="cons" readonly/>
                 </div>
                 <div class="form-group">					 
                     <label for="int">Inteligência</label>
-                    <input type="number" ng-model="fields.inte" class="form-control" id="int" min="6" max="26" ng-click="fields.modInte = setMod(fields.inte)"/>
+                    <input type="number" ng-model="fields.inte" class="form-control" id="int" min="6" max="26" ng-blur="fields.modInte = setMod(fields.inte)" ng-click="fields.modInte = setMod(fields.inte)"/>
                     <input type="text" ng-model="fields.modInte" class="form-control" id="int" readonly/>
                     <label for="wis">Sabedoria</label>
-                    <input type="number" ng-model="fields.wis" class="form-control" id="wis" min="6" max="26" ng-click="fields.modWis = setMod(fields.wis)"/>
+                    <input type="number" ng-model="fields.wis" class="form-control" id="wis" min="6" max="26" ng-blur="fields.modWis = setMod(fields.wis)" ng-click="fields.modWis = setMod(fields.wis)"/>
                     <input type="text" ng-model="fields.modWis" class="form-control" id="wis" readonly/>
                     <label for="cha">Carisma</label>
-                    <input type="number" ng-model="fields.cha" class="form-control" id="cha" min="6" max="26" ng-click="fields.modCha = setMod(fields.cha)"/>
+                    <input type="number" ng-model="fields.cha" class="form-control" id="cha" min="6" max="26" ng-blur="fields.modCha = setMod(fields.cha)" ng-click="fields.modCha = setMod(fields.cha)"/>
                     <input type="text" ng-model="fields.modCha" class="form-control" id="cha" readonly/>
                 </div>
         </form>

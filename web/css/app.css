@@ -1,13 +1,57 @@
+body{
+    background-image: url("../img/papiro.jpg"); 
+}
 .container{
-    width: 900px;
+    width: 1024px;
+    margin: 20px auto 20px auto;
+    background-color: whitesmoke;
+    padding: 5px auto 5px auto;    
+}
+.menu{
+    margin: 5px auto 0px auto;
+    display: table;
+    align-items: center;
+    justify-content: center;
+}
+.cabecalho{
+    margin: 5px auto 5px auto;
+    display: table;
+    display: inline-block;
+    position: relative;
     text-align: center;
-    margin-left: auto;
-    margin-right: auto;
-    margin-top: 20px;     
+    float: none;
+}
+.principal{
+   margin: 5px auto 0px auto;
+   text-align: center;
+   display: inline-block;
+   position: relative;
+   float: none;
+}
+.foot{
+    margin: 5px auto 5px auto;
 }
 
-.menu{
-    text-align: center;
-    margin-left: auto;
-    margin-right: auto;
+
+.imgInicio{
+    width: 768px;
+    margin: 5px 25px 5px 25px;
+    padding: 5px 25px 5px 25px;
+}
+
+table{
+    margin: 5px 25px 5px 25px;
+    padding: 5px 25px 5px 25px;
+}
+
+hr{
+    display: block;
+    margin: 1px auto 1px auto;
+    border-style: inset;
+    border-width: 1px;
+    
+}
+form{
+    margin: 5px auto 5px auto;
+    padding: 5px 25px 5px 25px;
 }
